@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+* {
+	@apply font-manrope;
+}
+
+::-webkit-scrollbar {
+	@apply w-[8px];
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	@apply bg-tertiary-300;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	@apply bg-primary-100 rounded;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-primary-200 cursor-pointer;
+}
+
+.skeletonDiv {
+	@apply [&>*]:bg-tertiary-300 [&>*]:animate-pulse;
+}
+
+.skeletonCell {
+	@apply bg-tertiary-300 animate-pulse;
+}
