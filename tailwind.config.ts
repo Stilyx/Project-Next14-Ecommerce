@@ -9,9 +9,9 @@ const config: Config = {
 	],
 	theme: {
 		screens: {
-			desktop: { min: "769px" },
-			tablet: { max: "768px" },
-			mobile: { max: "450px" },
+			desktop: { min: "879px" },
+			tablet: { max: "875px" },
+			mobile: { max: "600px" },
 		},
 		colors: {
 			primary: {
@@ -21,6 +21,8 @@ const config: Config = {
 			secondary: {
 				100: "#101010",
 				200: "#000000",
+				300: "#191919",
+				400: "#4C4C4C",
 			},
 			tertiary: {
 				100: "#FFFFFF",
@@ -30,6 +32,18 @@ const config: Config = {
 		},
 		fontFamily: {
 			manrope: ["Manrope", "sans-serif"],
+		},
+		backgroundImage: {
+			"hero-desktop": "url('/images/home/desktop/image-hero.jpg')",
+			"hero-tablet": "url('/images/home/tablet/image-hero.jpg')",
+			"hero-mobile": "url('/images/home/mobile/image-hero.jpg')",
+			"pattern-circle": "url('/images/home/desktop/pattern-circles.svg')",
+			"zx7-speaker-desktop":
+				"url('/images/home/desktop/image-speaker-zx7.jpg')",
+			"zx7-speaker-mobile": "url('/images/home/mobile/image-speaker-zx7.jpg')",
+		},
+		boxShadow: {
+			"icon-shadow": "rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;",
 		},
 		extend: {
 			typography: () => ({
