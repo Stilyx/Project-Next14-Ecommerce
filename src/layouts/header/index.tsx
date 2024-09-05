@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 
-export function Header() {
+export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { data, isLoading, isFetched } = useQuery({
@@ -64,4 +64,4 @@ export function Header() {
       />
     </>
   );
-}
+};
