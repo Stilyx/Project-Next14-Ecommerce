@@ -5,7 +5,7 @@ export default function HeaderNavigations() {
 	return (
 		<nav className="flex tablet:hidden prose-sub-title flex-row gap-[2.125rem] [&>*]:text-tertiary-100">
 			{paths.map((link, index: number) => (
-				<Link className="hover:text-opacity-40" key={index} href={link.path}>
+				<Link className="hover:text-primary-200" key={index} href={link.path}>
 					{link.pathName.toUpperCase()}
 				</Link>
 			))}
