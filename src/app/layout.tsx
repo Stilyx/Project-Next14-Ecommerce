@@ -1,4 +1,5 @@
 import { About } from "@/layouts/about";
+import { Footer } from "@/layouts/footer";
 import { AppProvider } from "@/providers";
 import { Header } from "@layouts/header";
 import type { Metadata } from "next";
@@ -24,6 +25,7 @@ export default function RootLayout({
           <Header />
           {children}
           <About />
+          <Footer />
         </AppProvider>
       </body>
     </html>
