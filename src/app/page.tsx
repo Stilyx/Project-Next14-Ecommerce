@@ -1,3 +1,9 @@
-export default async function Home() {
-	return <h1>test</h1>;
+import { Main } from "@/layouts/main";
+
+export default function Home() {
+  return (
+    <>
+      <Main />
+    </>
+  );
 }
