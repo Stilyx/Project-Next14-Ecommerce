@@ -2,10 +2,10 @@
 
 import { CartButton } from "@/components/cartButton";
 import { SectionCard } from "@/components/sectionCard";
+import CartModal from "@/features/cartModal";
+import { Menu } from "@/layouts/menu";
 import { getCart, readProduct } from "@/services";
-import CartModal from "@components/cartModal";
 import HeaderNavigations from "@components/headerNavigations";
-import { Menu } from "@components/menu";
 import logo from "@images/logo.svg";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";

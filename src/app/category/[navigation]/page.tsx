@@ -1,6 +1,6 @@
-import { CategoryList } from "@/components/categoryList";
 import { SectionCard } from "@/components/sectionCard";
 import { ShopCard } from "@/components/shopCard";
+import { CategoryList } from "@/features/categoryList";
 
 export default function Category({
   params,

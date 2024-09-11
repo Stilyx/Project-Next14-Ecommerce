@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Button from "../button";
+import Button from "../../components/button";
 import Loading from "./loading";
 
 export const CategoryList = (params: { navigation: string }) => {
@@ -33,6 +33,8 @@ export const CategoryList = (params: { navigation: string }) => {
     }
   }, []);
 
+  console.log(data?.map((item, index) => console.log(index)));
+
   return (
     <>
       {isLoading && isFetching && <Loading />}
@@ -41,10 +43,10 @@ export const CategoryList = (params: { navigation: string }) => {
           ?.map((item: IProduct, index: number) => (
             <div
               key={index}
-              className="flex w-full flex-row-reverse items-center justify-between gap-[7.813rem] odd:flex-row tablet:flex-col tablet:justify-center tablet:gap-[1.563rem] tablet:odd:flex-col"
+              className={`flex w-full flex-row-reverse items-center justify-center gap-[9.813rem] odd:flex-row tablet:flex-col tablet:justify-center tablet:gap-[1.563rem] tablet:odd:flex-col`}
             >
               <div
-                className={`flex h-[50%] w-[50%] tablet:h-[22rem] tablet:w-full tablet:items-center tablet:justify-center mobile:h-auto`}
+                className={`flex h-[560px] tablet:h-[22rem] tablet:w-full tablet:items-center tablet:justify-center mobile:h-auto`}
               >
                 <Image
                   src={item.categoryImage[size]}
@@ -70,7 +72,9 @@ export const CategoryList = (params: { navigation: string }) => {
                   {item.description}
                 </p>
                 <Button
-                  onClick={() => router.push(`/products/${item.slug}`)}
+                  onClick={() =>
+                    router.push(`/category/${item.category}/${item.slug}`)
+                  }
                   className="w-[10rem]"
                   variant="default"
                 >
