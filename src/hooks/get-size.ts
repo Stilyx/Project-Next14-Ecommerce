@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 const BREAKPOINTS = {
   DESKTOP: 962,
@@ -7,6 +7,7 @@ const BREAKPOINTS = {
 
 export function getSize(windowWidth: number): "desktop" | "tablet" | "mobile" {
   if (windowWidth > BREAKPOINTS.DESKTOP) return "desktop";
-  if (windowWidth > BREAKPOINTS.TABLET) return "tablet";
+  if (windowWidth > BREAKPOINTS.TABLET && windowWidth < BREAKPOINTS.DESKTOP)
+    return "tablet";
   return "mobile";
 }
