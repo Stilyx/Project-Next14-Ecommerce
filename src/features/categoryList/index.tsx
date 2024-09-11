@@ -46,7 +46,7 @@ export const CategoryList = (params: { navigation: string }) => {
               className={`flex w-full flex-row-reverse items-center justify-center gap-[9.813rem] odd:flex-row tablet:flex-col tablet:justify-center tablet:gap-[1.563rem] tablet:odd:flex-col`}
             >
               <div
-                className={`flex h-[560px] tablet:h-[22rem] tablet:w-full tablet:items-center tablet:justify-center mobile:h-auto`}
+                className={`flex h-[35rem] tablet:h-[22rem] tablet:w-full tablet:items-center tablet:justify-center mobile:h-auto`}
               >
                 <Image
                   src={item.categoryImage[size]}
