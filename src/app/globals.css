@@ -5,32 +5,32 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
 
 * {
-	@apply font-manrope;
+  @apply font-manrope;
 }
 
 ::-webkit-scrollbar {
-	@apply w-[8px];
+  @apply w-[8px];
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	@apply bg-tertiary-300;
+  @apply bg-tertiary-300;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	@apply bg-primary-100 rounded;
+  @apply rounded bg-primary-100;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-	@apply bg-primary-200 cursor-pointer;
+  @apply cursor-pointer bg-primary-200;
 }
 
 .skeletonDiv {
-	@apply [&>*]:bg-tertiary-300 [&>*]:animate-pulse;
+  @apply [&>*:not(div)]:animate-pulse [&>*:not(div)]:rounded-[0.375rem] [&>*:not(div)]:bg-tertiary-300;
 }
 
 .skeletonCell {
-	@apply bg-tertiary-300 animate-pulse;
+  @apply animate-pulse rounded-[0.375rem] bg-tertiary-300;
 }
