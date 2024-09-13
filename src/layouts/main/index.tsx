@@ -36,8 +36,8 @@ export const Main = () => {
       <SectionCard className="pb-[10.5rem] pt-[7.5rem]">
         <ShopCard />
       </SectionCard>
-      <SectionCard>
-        <section className="relative mb-[3rem] flex h-auto items-end justify-end overflow-hidden rounded bg-primary-200 bg-pattern-circle bg-left-top bg-no-repeat py-[8.125rem] tablet:flex-col tablet:items-center tablet:justify-center tablet:bg-contain tablet:bg-top">
+      <SectionCard className="flex w-full flex-col items-center justify-center">
+        <section className="relative mb-[3rem] flex h-auto w-full max-w-[69.375rem] items-end justify-end overflow-hidden rounded bg-primary-200 bg-pattern-circle bg-left-top bg-no-repeat py-[8.125rem] tablet:flex-col tablet:items-center tablet:justify-center tablet:bg-contain tablet:bg-top">
           <div className="absolute bottom-[-2.813rem] left-[3.125rem] h-[30.813rem] w-[25.625rem] tablet:relative tablet:left-0 tablet:mb-[5rem] tablet:h-[14.813rem] tablet:w-[12.313rem]">
             <Image
               src={speaker}
@@ -63,7 +63,7 @@ export const Main = () => {
             </Button>
           </div>
         </section>
-        <section className="mb-[3rem] flex h-auto w-full flex-col gap-[2rem] bg-zx7-speaker-desktop bg-cover bg-right bg-no-repeat py-[6.313rem] pl-[5.938rem] mobile:bg-zx7-speaker-mobile">
+        <section className="mb-[3rem] flex h-auto w-full max-w-[69.375rem] flex-col gap-[2rem] bg-zx7-speaker-desktop bg-cover bg-right bg-no-repeat py-[6.313rem] pl-[5.938rem] mobile:bg-zx7-speaker-mobile">
           <h4 className="prose-headline-h4">ZX7 SPEAKER</h4>
           <Button
             onClick={() => router.push("/category/speakers/zx7-speaker")}
@@ -74,16 +74,23 @@ export const Main = () => {
           </Button>
         </section>
 
-        <section className="mb-[12.5rem] flex h-[20rem] w-full flex-row gap-[1.875rem] mobile:h-auto mobile:flex-col">
-          <Image
-            className="h-full w-[50%] rounded-[0.375rem] object-cover mobile:w-full"
-            src={earphone}
-            alt="earphone product"
-            width={0}
-            height={0}
-          />
+        <section className="mb-[12.5rem] flex h-[20rem] w-full max-w-[69.375rem] flex-row justify-center gap-[1.875rem] mobile:h-auto mobile:flex-col">
+          <div className="flex h-full w-[50%] max-w-[43.75rem] mobile:w-full mobile:justify-center">
+            <Image
+              className="rounded-[0.375rem]"
+              src={earphone}
+              alt="earphone product"
+              width={540}
+              height={320}
+              style={{
+                objectFit: "fill",
+                height: "auto",
+                width: "auto",
+              }}
+            />
+          </div>
 
-          <div className="flex w-full flex-col justify-center gap-[3rem] rounded-[0.375rem] bg-tertiary-300 pl-[5.938rem] tablet:items-center tablet:pl-[1.5rem] mobile:py-[2.563rem]">
+          <div className="flex w-[50%] max-w-[43.75rem] flex-col justify-center gap-[3rem] rounded-[0.375rem] bg-tertiary-300 pl-[5.938rem] tablet:items-center tablet:pl-[1.5rem] mobile:w-full mobile:py-[2.563rem]">
             <h4 className="prose-headline-h4">YX1 EARPHONES</h4>
             <Button
               onClick={() => router.push("/category/earphones/yx1-earphones")}

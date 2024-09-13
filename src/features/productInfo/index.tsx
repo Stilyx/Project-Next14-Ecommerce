@@ -5,14 +5,13 @@ import { SectionCard } from "@/components/sectionCard";
 import { debounce } from "@/hooks/debounce";
 import { getSize } from "@/hooks/get-size";
 import { ICart } from "@/models/interfaces";
-import { addItemToCart } from "@/services";
-import { getProduct } from "@/services/product";
+import { addItemToCart, getProduct } from "@/services";
 import { formatDollar } from "@/utils/formatters";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Loading } from "./loading";
+import { ProductInfoLoading } from "./loading";
 
 export const ProductInfo = (navigation: { params: string }) => {
   const [size, setSize] = useState<"desktop" | "tablet" | "mobile">("desktop");
@@ -20,7 +19,7 @@ export const ProductInfo = (navigation: { params: string }) => {
   const router = useRouter();
 
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["product-item"],
     queryFn: () => getProduct(navigation.params),
   });
 
@@ -56,7 +55,7 @@ export const ProductInfo = (navigation: { params: string }) => {
   return (
     <>
       {isFetching && isLoading ? (
-        <Loading />
+        <ProductInfoLoading />
       ) : (
         <>
           <SectionCard className="mb-[10rem] flex items-center justify-center gap-[9.813rem] tablet:gap-[1.563rem] mobile:flex-col">
@@ -129,9 +128,9 @@ export const ProductInfo = (navigation: { params: string }) => {
             <section className="flex flex-col justify-between tablet:w-[95%] tablet:flex-row mobile:flex-col mobile:items-start">
               <h3 className="prose-headline-h3 mb-[2rem]">IN THE BOX</h3>
               <div className="flex flex-col gap-[0.5rem]">
-                {productData?.includedItems.map(({ item, quantity }, index) => (
+                {productData?.includedItems.map(({ item, quantity }) => (
                   <div
-                    key={index}
+                    key={item}
                     className="prose-body flex flex-row items-center gap-[1.5rem]"
                   >
                     <p className="text-primary-200">{quantity}x</p>
@@ -191,7 +190,7 @@ export const ProductInfo = (navigation: { params: string }) => {
             <section className="flex flex-row items-center gap-[2rem] mobile:flex-col">
               {productData?.others.map((product, index) => (
                 <div
-                  key={index}
+                  key={index + 1}
                   className="flex flex-col items-center gap-[2.188rem]"
                 >
                   <Image

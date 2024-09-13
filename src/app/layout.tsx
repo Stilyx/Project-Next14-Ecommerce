@@ -22,10 +22,7 @@ export default function RootLayout({
       <body>
         <AppProvider>
           <ToastContainer position="top-left" autoClose={3000} theme="dark" />
-          <Header />
           {children}
-          <About />
-          <Footer />
         </AppProvider>
       </body>
     </html>

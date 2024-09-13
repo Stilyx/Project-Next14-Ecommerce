@@ -1,6 +1,6 @@
 import { SectionCard } from "@/components/sectionCard";
 
-export const Loading = () => {
+export const ProductInfoLoading = () => {
   const othersArr = new Array(3).fill(null);
   const includedArr = new Array(4).fill(null);
   return (
@@ -31,9 +31,9 @@ export const Loading = () => {
         <section className="flex flex-col justify-between tablet:w-[95%] tablet:flex-row mobile:flex-col mobile:items-start">
           <h3 className="prose-headline-h3 mb-[2rem]">IN THE BOX</h3>
           <div className="flex flex-col gap-[1rem]">
-            {includedArr.map((index) => (
+            {includedArr.map((_, index) => (
               <div
-                key={index}
+                key={`included-${index}`}
                 className="skeletonDiv flex flex-row items-center gap-[1.5rem]"
               >
                 <p className="h-4 w-5"></p>
@@ -57,7 +57,7 @@ export const Loading = () => {
         <section className="flex w-full flex-row items-center gap-[2rem] mobile:flex-col">
           {othersArr.map((_, index) => (
             <div
-              key={index}
+              key={`others-${index}`}
               className="skeletonDiv flex w-full flex-col items-center gap-[2.188rem]"
             >
               <div className="skeletonCell h-[19.875rem] w-full"></div>

@@ -49,6 +49,8 @@ export const Footer = () => {
                     src={midia.icon}
                     width={24}
                     height={24}
+                    style={{ width: "auto", height: "auto" }}
+                    priority
                   />
                 </Link>
               ))}
