@@ -11,10 +11,12 @@ import { sumPrices } from "@utils/sum-prices";
 import Image from "next/image";
 import { ICardModal } from "./interface";
 import { Loading } from "./loading";
+import { useRouter } from "next/navigation";
 
 export default function CartModal(props: ICardModal) {
   const pricesArray = props.data?.map((item) => item.price * item.quantity);
   const addedPrices = sumPrices(pricesArray);
+  const router = useRouter();
 
   const handleLessOrDelete = (id: string, quantity: number) => {
     const newQuantity = quantity - 1;
@@ -123,7 +125,11 @@ export default function CartModal(props: ICardModal) {
               <p className="opacity-50">TOTAL</p>
               <p className="prose-headline-h6">{formatDollar(addedPrices)}</p>
             </section>
-            <Button className="w-full" variant="default">
+            <Button
+              onClick={() => router.push("/checkout")}
+              className="w-full"
+              variant="default"
+            >
               Checkout
             </Button>
           </>
