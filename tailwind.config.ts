@@ -22,12 +22,16 @@ const config: Config = {
         100: "#101010",
         200: "#000000",
         300: "#191919",
-        400: "#4C4C4C",
       },
       tertiary: {
         100: "#FFFFFF",
         200: "#FAFAFA",
         300: "#F1F1F1",
+        400: "#CFCFCF",
+        500: "#4C4C4C",
+      },
+      status: {
+        red: "#CD2C2C",
       },
     },
     fontFamily: {

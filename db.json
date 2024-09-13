@@ -533,14 +533,5 @@
       ]
     }
   ],
-  "cart": [
-    {
-      "id": "0a45",
-      "cartImage": "/images/cart/image-xx59-headphones.jpg",
-      "shortName": "XX59",
-      "new": false,
-      "price": 899,
-      "quantity": 1
-    }
-  ]
+  "cart": []
 }
