@@ -33,8 +33,6 @@ export const CategoryList = (params: { navigation: string }) => {
     }
   }, []);
 
-  console.log(data?.map((item, index) => console.log(index)));
-
   return (
     <>
       {isLoading && isFetching && <Loading />}
