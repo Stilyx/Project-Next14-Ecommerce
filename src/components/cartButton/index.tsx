@@ -10,7 +10,7 @@ export const CartButton = (props: iCartProps) => {
   return (
     <button
       onClick={(e) => props.handleOpenModal(e)}
-      className="cart z-60 relative flex w-[1.25rem] items-center"
+      className="cart relative z-[200] flex w-[1.25rem] items-center"
     >
       <div className="h-[1.25rem] w-[1.25rem]">
         <Image

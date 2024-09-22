@@ -11,7 +11,7 @@ export const ShopCard = () => {
         <Link
           key={index}
           href={item.path}
-          className="group relative flex h-[12.75rem] w-[21.875rem] flex-col items-center justify-center rounded-[0.375rem] bg-tertiary-300 duration-500 hover:bg-secondary-400"
+          className="group relative flex h-[12.75rem] w-[21.875rem] flex-col items-center justify-center rounded-[0.375rem] bg-tertiary-300 duration-500 hover:bg-tertiary-500"
         >
           <div className="z-1 absolute top-[-9.375rem] flex h-[12.5rem] w-[12.5rem] items-end justify-center">
             <Image
