@@ -1,4 +1,3 @@
-import { About } from "@/layouts/about";
 import { Footer } from "@/layouts/footer";
 import { Header } from "@layouts/header";
 import type { Metadata } from "next";
@@ -16,7 +15,9 @@ export default function CheckoutLayout({
   return (
     <>
       <Header />
-      <main className="h-full w-full bg-tertiary-300">{children}</main>
+      <main className="relative h-full w-full flex-grow bg-tertiary-300">
+        {children}
+      </main>
       <Footer />
     </>
   );

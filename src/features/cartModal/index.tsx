@@ -26,6 +26,11 @@ export default function CartModal(props: ICardModal) {
     changeProductQuantity(id, { quantity: newQuantity });
   };
 
+  const handleNavigateToCheckout = () => {
+    router.push("/checkout");
+    document.body.style.overflow = "visible";
+  };
+
   return (
     <section
       onClick={(e) => props.handleOpenModal(e)}
@@ -33,7 +38,7 @@ export default function CartModal(props: ICardModal) {
         !props.isModalOpen && "hidden"
       } wrapper absolute z-[100] h-full w-full bg-secondary-100/[0.7]`}
     >
-      <div className="absolute right-6 top-[0.5rem] min-h-[25rem] w-fit min-w-[20.438rem] rounded bg-tertiary-100 px-[2.063rem] py-[1.938rem] tablet:h-[70%] mobile:left-0 mobile:right-0 mobile:mx-auto">
+      <div className="absolute right-6 top-[6rem] min-h-[25rem] w-fit min-w-[20.438rem] rounded bg-tertiary-100 px-[2.063rem] py-[1.938rem] tablet:h-[70%] mobile:left-0 mobile:right-0 mobile:mx-auto">
         {props.isLoading && !props.isFetched && <Loading />}
         {!props.data?.length && props.isFetched && (
           <div className="flex flex-col items-center justify-center gap-6 text-center">
@@ -126,7 +131,7 @@ export default function CartModal(props: ICardModal) {
               <p className="prose-headline-h6">{formatDollar(addedPrices)}</p>
             </section>
             <Button
-              onClick={() => router.push("/checkout")}
+              onClick={handleNavigateToCheckout}
               className="w-full"
               variant="default"
             >
