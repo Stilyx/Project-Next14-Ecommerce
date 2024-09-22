@@ -1,5 +1,5 @@
+import { instance } from "@/utils/axios-config/axios-config";
 import { ICart } from "@models/interfaces";
-import { instance } from "@utils/axios-config/axios-config";
 import { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 
@@ -35,7 +35,10 @@ export const changeProductQuantity = async (
 export const readProduct = async (cartList: ICart[]) => {
   try {
     cartList.forEach((item) => {
-      instance.patch(`/cart/${item.id}`, { new: false });
+      if (item.new) {
+        instance.patch(`/cart/${item.id}`, { new: false });
+      }
+      return;
     });
   } catch (err) {}
 };
