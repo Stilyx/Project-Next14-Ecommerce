@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 export const Main = () => {
   const router = useRouter();
   return (
-    <main>
+    <main className="flex-grow">
       <SectionCard className="flex h-screen w-full flex-col justify-center bg-cover bg-center bg-no-repeat desktop:bg-hero-desktop tablet:bg-hero-tablet mobile:bg-hero-mobile">
         <section className="flex w-[23rem] flex-col items-start gap-[1.313rem] text-tertiary-100 tablet:w-full tablet:items-center tablet:text-center">
           <h2 className="prose-overline opacity-50">NEW PRODUCT</h2>
@@ -75,7 +75,7 @@ export const Main = () => {
         </section>
 
         <section className="mb-[12.5rem] flex h-[20rem] w-full max-w-[69.375rem] flex-row justify-center gap-[1.875rem] mobile:h-auto mobile:flex-col">
-          <div className="flex h-full w-[50%] max-w-[43.75rem] mobile:w-full mobile:justify-center">
+          <div className="flex h-auto w-[50%] object-fill mobile:w-full mobile:justify-center">
             <Image
               className="rounded-[0.375rem]"
               src={earphone}
@@ -83,7 +83,6 @@ export const Main = () => {
               width={540}
               height={320}
               style={{
-                objectFit: "fill",
                 height: "auto",
                 width: "auto",
               }}

@@ -7,7 +7,7 @@ import { socialMidias } from "./constants";
 
 export const Footer = () => {
   return (
-    <footer className="relative w-full bg-secondary-100 pb-[2.875rem]">
+    <footer className="relative bottom-0 w-full bg-secondary-100 pb-[2.875rem]">
       <span className="absolute left-[2.438rem] h-[0.25rem] w-[6.25rem] bg-primary-200 mobile:left-0 mobile:right-0 mobile:mx-auto"></span>
       <SectionCard>
         <section className="flex w-full items-center justify-between pb-[2.25rem] pt-[4.688rem] tablet:flex-col tablet:items-start tablet:gap-[2rem] mobile:items-center mobile:gap-[3rem]">
