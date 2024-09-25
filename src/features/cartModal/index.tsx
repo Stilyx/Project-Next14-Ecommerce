@@ -60,7 +60,7 @@ export default function CartModal(props: ICardModal) {
       onClick={(e) => props.handleOpenModal(e)}
       className={`${!props.isModalOpen && "hidden"} wrapper absolute z-[100] h-full w-full bg-secondary-100/[0.7]`}
     >
-      <div className="absolute right-6 top-[6rem] min-h-[25rem] w-fit min-w-[20.438rem] rounded bg-tertiary-100 px-[2.063rem] py-[1.938rem] tablet:h-[70%] mobile:left-0 mobile:right-0 mobile:mx-auto">
+      <div className="absolute right-6 top-[6rem] min-h-[25rem] w-fit min-w-[20.438rem] rounded bg-tertiary-100 px-[2.063rem] py-[1.938rem] tablet:max-h-[80%] mobile:left-0 mobile:right-0 mobile:mx-auto mobile:h-auto mobile:max-h-[80%]">
         {!cartList.length && (
           <div className="flex flex-col items-center justify-center gap-6 text-center">
             <h6 className="prose-headline-h6 opacity-50">Your cart is empty</h6>
@@ -89,7 +89,8 @@ export default function CartModal(props: ICardModal) {
                 Remove all
               </button>
             </section>
-            <section className="relative mb-[2rem] flex h-[11.25rem] max-h-[11.25rem] flex-col gap-[0.8rem] overflow-y-auto tablet:h-full tablet:max-h-[15rem] mobile:max-h-[20rem]">
+
+            <section className="relative mb-[5rem] flex h-[11.25rem] max-h-[11.25rem] flex-col gap-[0.8rem] overflow-y-auto tablet:h-full tablet:max-h-[15rem] mobile:max-h-[20rem]">
               {cartList
                 ?.map((product: ICart, index: number) => (
                   <div
@@ -118,7 +119,6 @@ export default function CartModal(props: ICardModal) {
                         <p className="opacity-50">{product.price}</p>
                       </div>
                     </div>
-
                     <div className="prose-sub-title flex flex-row items-center gap-[1rem] bg-tertiary-300 px-[1rem] py-[0.25rem] [&>button]:opacity-50">
                       <button
                         onClick={() =>
@@ -148,17 +148,19 @@ export default function CartModal(props: ICardModal) {
                 ))
                 .reverse()}
             </section>
-            <section className="mb-[1.5rem] flex flex-row items-center justify-between">
-              <p className="opacity-50">TOTAL</p>
-              <p className="prose-headline-h6">{formatDollar(addedPrices)}</p>
-            </section>
-            <Button
-              onClick={handleNavigateToCheckout}
-              className="w-full"
-              variant="default"
-            >
-              Checkout
-            </Button>
+            <div className="flex h-fit w-full flex-col gap-[1.5rem]">
+              <section className="flex flex-row items-center justify-between">
+                <p className="opacity-50">TOTAL</p>
+                <p className="prose-headline-h6">{formatDollar(addedPrices)}</p>
+              </section>
+              <Button
+                onClick={handleNavigateToCheckout}
+                className="w-full"
+                variant="default"
+              >
+                Checkout
+              </Button>
+            </div>
           </>
         )}
       </div>

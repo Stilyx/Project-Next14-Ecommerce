@@ -39,7 +39,7 @@ export const CheckoutModal = ({
 
             <div className="flex flex-row py-[2rem] pb-[2.875rem] mobile:flex-col">
               <div className="flex flex-col items-center justify-center rounded-s-md bg-tertiary-300 px-[1rem] py-[2rem] mobile:rounded-s-none mobile:rounded-t-md">
-                <ul className="flex max-h-[11.25rem] flex-col gap-[1rem] overflow-y-auto pr-[1.875rem]">
+                <ul className="flex max-h-[11.25rem] flex-col gap-[1rem] overflow-y-auto pr-[1.875rem] mobile:w-full">
                   {staticData.slice(0, visibleCartList).map((produt) => (
                     <div
                       key={produt.id}
