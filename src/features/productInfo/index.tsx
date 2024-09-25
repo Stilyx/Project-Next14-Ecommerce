@@ -2,42 +2,50 @@
 
 import Button from "@/components/button";
 import { SectionCard } from "@/components/sectionCard";
+import { useCart } from "@/hooks/cart-context";
 import { debounce } from "@/hooks/debounce";
 import { getSize } from "@/hooks/get-size";
 import { ICart } from "@/models/interfaces";
-import { addItemToCart, getProduct } from "@/services";
+import { getProduct } from "@/services";
 import { formatDollar } from "@/utils/formatters";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { ProductInfoLoading } from "./loading";
 
 export const ProductInfo = (navigation: { params: string }) => {
   const [size, setSize] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [quantity, setQuantity] = useState<number>(1);
   const router = useRouter();
+  const { cartList, setCartList } = useCart();
 
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["product-item"],
     queryFn: () => getProduct(navigation.params),
   });
 
-  const mutation = useMutation({
-    mutationFn: addItemToCart,
-  });
-
   const productData = data?.[0] || undefined;
 
   const handleAddProduct = () => {
+    const cart = JSON.parse(Cookies.get("cart") || "[]");
+    const randomId = () => Math.floor(Math.random() * 10000);
     const data: ICart = {
+      id: randomId(),
       cartImage: productData!.cartImage,
       shortName: productData!.shortName,
       new: true,
       price: productData!.price,
       quantity: quantity,
     };
-    mutation.mutate(data);
+
+    cart.push(data);
+    setCartList([...cartList, data]);
+
+    Cookies.set("cart", JSON.stringify(cart));
+    toast.success(`${data.shortName} was added to cart`);
   };
 
   useEffect(() => {

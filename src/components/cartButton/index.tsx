@@ -1,10 +1,14 @@
+import { useCart } from "@/hooks/cart-context";
+import { ICart } from "@/models/interfaces";
 import cart from "@images/images/cart/cart.svg";
 import Image from "next/image";
 import { iCartProps } from "./interfaces";
 
 export const CartButton = (props: iCartProps) => {
-  const cartNoReadNumber = props.data.filter(
-    (item) => item.new === true,
+  const { cartList } = useCart();
+
+  const cartNoReadNumber = cartList?.filter(
+    (item: ICart) => item.new === true,
   ).length;
 
   return (

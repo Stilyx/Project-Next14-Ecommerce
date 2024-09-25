@@ -1,9 +1,10 @@
-import { NextResponse, NextRequest } from "next/server";
-import { getCart, getCategory, getProduct } from "@/services";
+import { getCategory, getProduct } from "@/services";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function checkCartAndRedirect(request: NextRequest) {
-  const cartList = await getCart();
-  if (cartList.length === 0) {
+  const cart = request.cookies.get("cart")?.value || "";
+
+  if (!JSON.parse(cart || "[]").length) {
     const redirectUrl = new URL("/", request.url);
     return NextResponse.redirect(redirectUrl);
   }

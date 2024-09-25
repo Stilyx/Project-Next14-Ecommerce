@@ -1,17 +1,18 @@
 "use client";
 
 import { BackButton } from "@/components/backButton";
+import { useCart } from "@/hooks/cart-context";
 import { ICart } from "@/models/interfaces";
 import {
   CheckoutFormSchema,
   checkoutSchema,
 } from "@/models/schemas/checkout-form";
-import { deleteAllCart, getCart } from "@/services";
 import { sumPrices } from "@/utils/sum-prices";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { CheckoutForm } from "./checkoutForm";
 import { CheckoutModal } from "./checkoutModal";
 import { CheckoutSummary } from "./checkoutSummary";
@@ -19,10 +20,7 @@ import { CheckoutSummary } from "./checkoutSummary";
 export const CheckoutFeature = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [completedList, setCompletedList] = useState<ICart[]>([]);
-  const { data, isLoading } = useQuery({
-    queryKey: ["get-cart"],
-    queryFn: getCart,
-  });
+  const { cartList, setCartList } = useCart();
 
   const {
     register,
@@ -33,12 +31,14 @@ export const CheckoutFeature = () => {
     mode: "all",
   });
 
-  const staticData = data?.map((product) => product);
   const radioOption = watch("moneyType");
 
   const getPrices = () => {
-    const totalArray = data?.map((item) => item.price * item.quantity);
-    const total = sumPrices(totalArray || []);
+    const totalArray = cartList.length
+      ? cartList?.map((item) => item.price * item.quantity)
+      : completedList.map((item) => item.price * item.quantity);
+
+    const total = sumPrices(totalArray);
     const vat = total * 0.1;
     const shipping = 50;
     const grandTotal = vat + shipping + total;
@@ -48,14 +48,16 @@ export const CheckoutFeature = () => {
 
   const handleClickContinue = async () => {
     setIsOpenModal(true);
-    await deleteAllCart(data!);
-    setCompletedList(data!);
+    Cookies.set("cart", JSON.stringify([]));
+    setCartList([]);
+    setCompletedList(cartList);
+    toast.success("Purchase successfully made!");
   };
 
   return (
     <>
       <CheckoutModal
-        staticData={completedList || []}
+        staticData={cartList.length > 0 ? cartList : completedList}
         isOpenModal={isOpenModal}
         prices={() => getPrices()}
       />
@@ -73,8 +75,7 @@ export const CheckoutFeature = () => {
         </section>
         <CheckoutSummary
           isValid={isValid}
-          data={staticData || completedList}
-          isLoading={isLoading}
+          data={cartList}
           handleClickContinue={() => handleClickContinue()}
           prices={() => getPrices()}
         />

@@ -1,29 +1,53 @@
-import {
-  changeProductQuantity,
-  deleteAllCart,
-  deleteProductId,
-} from "@/services";
+import { useCart } from "@/hooks/cart-context";
+import { sumPrices } from "@/utils/sum-prices";
 import Button from "@components/button";
 import emptyCart from "@images/images/cart/empty-cart.png";
 import { ICart } from "@models/interfaces";
 import { formatDollar } from "@utils/formatters";
-import { sumPrices } from "@utils/sum-prices";
+import Cookies from "js-cookie";
 import Image from "next/image";
-import { ICardModal } from "./interface";
-import { Loading } from "./loading";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { ICardModal } from "./interface";
 
 export default function CartModal(props: ICardModal) {
-  const pricesArray = props.data?.map((item) => item.price * item.quantity);
+  const { cartList, setCartList } = useCart();
+  const pricesArray = cartList.map((item: ICart) => item.price * item.quantity);
   const addedPrices = sumPrices(pricesArray);
   const router = useRouter();
 
-  const handleLessOrDelete = (id: string, quantity: number) => {
-    const newQuantity = quantity - 1;
+  const handleChangeQuantity = (
+    id: number,
+    quantity: number,
+    operation: string,
+  ) => {
+    let newQuantity = quantity;
+
+    if (operation === "sum") newQuantity = quantity + 1;
+    if (operation === "sub") newQuantity = quantity - 1;
 
     if (newQuantity <= 0) return deleteProductId(id);
 
-    changeProductQuantity(id, { quantity: newQuantity });
+    const newCart = cartList.map((product: ICart) =>
+      product.id === id ? { ...product, quantity: newQuantity } : product,
+    );
+
+    setCartList(newCart);
+    Cookies.set("cart", JSON.stringify(newCart));
+  };
+
+  const handleRemoveAll = () => {
+    setCartList([]);
+    Cookies.set("cart", JSON.stringify([]));
+    toast.success("The cart has been cleaned!!");
+  };
+
+  const deleteProductId = (id: number) => {
+    const newCart = cartList.filter((product: ICart) => id !== product.id);
+
+    setCartList(newCart);
+    Cookies.set("cart", JSON.stringify(newCart));
+    toast.success("Product deleted!");
   };
 
   const handleNavigateToCheckout = () => {
@@ -34,17 +58,12 @@ export default function CartModal(props: ICardModal) {
   return (
     <section
       onClick={(e) => props.handleOpenModal(e)}
-      className={`${
-        !props.isModalOpen && "hidden"
-      } wrapper absolute z-[100] h-full w-full bg-secondary-100/[0.7]`}
+      className={`${!props.isModalOpen && "hidden"} wrapper absolute z-[100] h-full w-full bg-secondary-100/[0.7]`}
     >
       <div className="absolute right-6 top-[6rem] min-h-[25rem] w-fit min-w-[20.438rem] rounded bg-tertiary-100 px-[2.063rem] py-[1.938rem] tablet:h-[70%] mobile:left-0 mobile:right-0 mobile:mx-auto">
-        {props.isLoading && !props.isFetched && <Loading />}
-        {!props.data?.length && props.isFetched && (
+        {!cartList.length && (
           <div className="flex flex-col items-center justify-center gap-6 text-center">
-            <h6 className="prose-headline-h6 opacity-50">
-              Seu carrinho está vázio
-            </h6>
+            <h6 className="prose-headline-h6 opacity-50">Your cart is empty</h6>
             <Image
               alt="empty cart"
               src={emptyCart}
@@ -57,21 +76,21 @@ export default function CartModal(props: ICardModal) {
             />
           </div>
         )}
-        {props.data!.length > 0 && props.isFetched && (
+        {cartList!.length > 0 && (
           <>
             <section className="flex flex-row justify-between pb-[2rem]">
               <p className="prose-headline-h6">
-                CART ({props.data?.length ? props.data.length : 0})
+                CART ({cartList?.length ? cartList.length : 0})
               </p>
               <button
-                onClick={() => deleteAllCart(props.data!)}
+                onClick={() => handleRemoveAll()}
                 className="prose-sub-title underline opacity-50"
               >
                 Remove all
               </button>
             </section>
-            <section className="relative mb-[2rem] flex h-[11.25rem] max-h-[11.25rem] flex-col gap-[0.8rem] overflow-y-auto tablet:max-h-[15rem]">
-              {props.data
+            <section className="relative mb-[2rem] flex h-[11.25rem] max-h-[11.25rem] flex-col gap-[0.8rem] overflow-y-auto tablet:h-full tablet:max-h-[15rem] mobile:max-h-[20rem]">
+              {cartList
                 ?.map((product: ICart, index: number) => (
                   <div
                     key={index}
@@ -103,9 +122,10 @@ export default function CartModal(props: ICardModal) {
                     <div className="prose-sub-title flex flex-row items-center gap-[1rem] bg-tertiary-300 px-[1rem] py-[0.25rem] [&>button]:opacity-50">
                       <button
                         onClick={() =>
-                          handleLessOrDelete(
-                            product?.id || "",
+                          handleChangeQuantity(
+                            product.id,
                             product.quantity,
+                            "sub",
                           )
                         }
                       >
@@ -114,9 +134,11 @@ export default function CartModal(props: ICardModal) {
                       <p>{product.quantity}</p>
                       <button
                         onClick={() =>
-                          changeProductQuantity(product?.id || "", {
-                            quantity: product.quantity + 1,
-                          })
+                          handleChangeQuantity(
+                            product.id,
+                            product.quantity,
+                            "sum",
+                          )
                         }
                       >
                         +

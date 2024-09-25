@@ -3,24 +3,30 @@
 import { CartButton } from "@/components/cartButton";
 import { SectionCard } from "@/components/sectionCard";
 import CartModal from "@/features/cartModal";
+import { useCart } from "@/hooks/cart-context";
 import { Menu } from "@/layouts/menu";
-import { getCart, readProduct } from "@/services";
+import { ICart } from "@/models/interfaces";
 import HeaderNavigations from "@components/headerNavigations";
 import logo from "@images/logo.svg";
-import { useQuery } from "@tanstack/react-query";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import { useState } from "react";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { cartList, setCartList } = useCart();
 
-  const { data, isLoading, isFetched } = useQuery({
-    queryKey: ["get-cart"],
-    queryFn: getCart,
-    refetchInterval: 1000,
-  });
+  const readProduct = async (cartListItems: ICart[]) => {
+    const updatedCartList = cartListItems.map((item) => {
+      if (item.new) {
+        return { ...item, new: false };
+      }
+      return item;
+    });
 
-  const dataList = data || [];
+    setCartList(updatedCartList);
+    Cookies.set("cart", JSON.stringify(updatedCartList));
+  };
 
   const handleOpenModal = async (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLDivElement;
@@ -31,8 +37,7 @@ export const Header = () => {
 
     setIsModalOpen((prev) => !prev);
 
-    setTimeout(() => readProduct(dataList), 3000);
-
+    readProduct(cartList);
     return newState
       ? (document.body.style.overflow = "hidden")
       : (document.body.style.overflow = "visible");
@@ -52,15 +57,12 @@ export const Header = () => {
             priority
           />
           <HeaderNavigations />
-          <CartButton data={dataList} handleOpenModal={handleOpenModal} />
+          <CartButton handleOpenModal={handleOpenModal} />
         </section>
       </SectionCard>
       <CartModal
-        isLoading={isLoading}
-        isFetched={isFetched}
         isModalOpen={isModalOpen}
         handleOpenModal={(e) => handleOpenModal(e)}
-        data={dataList}
       />
     </>
   );
