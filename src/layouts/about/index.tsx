@@ -18,7 +18,7 @@ export const About = () => {
         </p>
       </section>
 
-      <div className="h-[36.75rem] w-[540px] bg-contain bg-right bg-no-repeat desktop:bg-best-gear-desktop tablet:h-[18.75rem] tablet:w-full tablet:bg-best-gear-tablet tablet:bg-contain tablet:bg-center mobile:bg-best-gear-mobile"></div>
+      <div className="h-[36.75rem] w-[33.75rem] bg-contain bg-right bg-no-repeat desktop:bg-best-gear-desktop tablet:h-[18.75rem] tablet:w-full tablet:bg-best-gear-tablet tablet:bg-contain tablet:bg-center mobile:bg-best-gear-mobile"></div>
     </SectionCard>
   );
 };

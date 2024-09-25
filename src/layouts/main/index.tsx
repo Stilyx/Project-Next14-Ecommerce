@@ -75,17 +75,17 @@ export const Main = () => {
         </section>
 
         <section className="mb-[12.5rem] flex h-[20rem] w-full max-w-[69.375rem] flex-row justify-center gap-[1.875rem] mobile:h-auto mobile:flex-col">
-          <div className="flex h-auto w-[50%] object-fill mobile:w-full mobile:justify-center">
+          <div className="flex h-auto w-[60%] mobile:w-full mobile:justify-center">
             <Image
               className="rounded-[0.375rem]"
               src={earphone}
               alt="earphone product"
               width={540}
-              height={320}
               style={{
                 height: "auto",
-                width: "auto",
+                objectFit: "fill",
               }}
+              priority
             />
           </div>
 
