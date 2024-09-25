@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const api = "https://ecommerce-api-three-peach.vercel.app";
+
 export const instance = axios.create({
-	baseURL: process.env.BASE_URL,
-	headers: {
-		"Content-Type": "application/json",
-	},
+  baseURL: api,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
